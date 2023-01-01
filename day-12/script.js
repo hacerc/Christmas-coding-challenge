@@ -18,15 +18,9 @@ function checkBoxes() {
   });
 }
 
-const picture = async () => {
+const picture = (element) => {
   const selectedBox = document.querySelector(".selected-box");
-  const results = await getAllComments();
-  results.forEach((item) => {
-    selectedBox.innerHTML += `<div class="box"><h2>${item.email}</h2></div>`;
-    console.log(selectedBox.innerHTML);
-    console.log(item);
-
-  });
+  selectedBox.innerHTML += `<div class="box"><h2>${element.email}</h2></div>`;
 };
 const getAllComments = async () => {
   const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
@@ -34,4 +28,9 @@ const getAllComments = async () => {
   console.log(data);
   return data;
 };
-picture();
+getAllComments().then(async(item)=>{
+  await item.forEach((element)=>{
+    console.log(element);
+    picture(element)})
+  
+});
